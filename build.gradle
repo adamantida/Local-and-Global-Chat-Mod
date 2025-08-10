@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url = "https://maven.minecraftforge.net/" }
+        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+
+        // Добавляем репозиторий Gradle Plugin Portal
+        maven { url = "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "com.anatawa12.forge:ForgeGradle:1.2-1.1.+"
+
+    }
+}
+
+apply plugin: 'forge'
+
+
+group = 'com.SumalyFly.localChat'
+version = '1.8'
+archivesBaseName = 'LocalChat'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+minecraft {
+    version = '1.7.10-10.13.4.1614-1.7.10'
+    runDir = 'eclipse'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
